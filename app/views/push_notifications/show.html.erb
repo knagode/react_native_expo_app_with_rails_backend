@@ -1,0 +1,45 @@
+<h1 style="margin-top:58px">Init page</h1>
+
+Welcome. <br/>
+
+<div style="font-size: 9px">
+  <code>
+  push_token=<%= params[:expo_push_token] %>
+  <br/>
+  auth_token=<%= params[:auth_token] %>
+  <br/>
+  url=<%= params[:url] %>
+  </code>
+</div>
+
+
+<ul>
+  <li>
+    <a href="#" onclick="window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'askForPushNotificationPermission' })); return false;">Turn on push notifications</a>
+  </li>
+
+  <li>
+    <a href="#" onclick="window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'setAuthToken', token: 'xyz' + Math.floor(Math.random() * 1000)})); return false;">Set auth token</a>
+  </li>
+
+  <li>
+    <a href="#" onclick="window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'setAuthToken', token: ''})); return false;">Clear auth token</a>
+  </li>
+
+<!--   <li>
+    <a href="#" onclick="window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'alert', message: 'Hello world'})); return false;">Send alert via React Native</a>
+  </li> -->
+
+  <% if params[:expo_push_token].present? %>
+    <li>
+      <%= button_to "Send notification from backend", phone_app_send_notification_path, method: :post %>
+    </li>
+  <% end %>
+
+  <li>
+    <a href="#" onclick="document.location.reload(); return false">Reload</a>
+  </li>
+</ul>
+
+
+

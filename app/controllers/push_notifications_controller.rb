@@ -1,21 +1,38 @@
 class PushNotificationsController < ApplicationController
+  def show
+    %w(auth_token expo_push_token).each do |key|
+      session[key] = params[key]  if params[key]
+    end
+
+    # if session[:auth_token]
+    #   sign_in(:user, User.find_by(auth_token: session[:auth_token]))
+    # end
+
+    # raise params[:url] if params[:url]
+
+    redirect_to params[:url], allow_other_host: Rails.env.development? if params[:url].present?
+  end
+
+
   def send_sample_notification
     client = Exponent::Push::Client.new
     # client = Exponent::Push::Client.new(gzip: true)  # for compressed, faster requests
 
+    random_number = rand(1000)
+
     messages = [
       {
-        to: "ExponentPushToken[lYq2h0FMhxmeZy5iCHTWog]",
+        to: session[:expo_push_token], #"ExponentPushToken[lYq2h0FMhxmeZy5iCHTWog]",
         sound: "default",
-        body: "Hello world!", 
-        data: { url: "https://google.com" }
+        body: "Random number from server #{random_number}", 
+        data: { url: phone_app_another_page_url(host: request.host, rand: random_number) }
       }
       # , {
       #   to: "ExponentPushToken[yyyyyyyyyyyyyyyyyyyyyy]",
       #   badge: 1,
       #   body: "You've got mail"
       # }
-  ]
+    ]
 
     # @Deprecated
     # client.publish(messages)
