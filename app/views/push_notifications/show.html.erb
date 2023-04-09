@@ -1,8 +1,6 @@
 <h1 style="margin-top:58px">Init page</h1>
 
-Welcome. <br/>
-
-<div style="font-size: 9px">
+<div style="font-size: 10px; background: #eee; padding: 10px; border-radius: 10px; margin-bottom: 10px">
   <code>
   push_token=<%= params[:expo_push_token] %>
   <br/>
@@ -16,7 +14,7 @@ Welcome. <br/>
 <ul>
   <% unless params[:expo_push_token].present? %>
     <li>
-      <a href="#" onclick="window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'askForPushNotificationPermission' })); return false;">Turn on push notifications</a>
+      <a class="btn" href="#" onclick="window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'askForPushNotificationPermission' })); return false;">Turn on push notifications</a>
     </li>
   <% end %>
 
@@ -34,12 +32,12 @@ Welcome. <br/>
 
   <% if params[:expo_push_token].present? %>
     <li>
-      <%= button_to "Send notification from backend", phone_app_send_notification_path, method: :post %>
+      <%= button_to "Send notification from backend", phone_app_send_notification_path, method: :post, class: 'btn' %>
     </li>
   <% end %>
 
   <li>
-    <a href="#" onclick="document.location.reload(); return false">Reload</a>
+    <a href="#" class="btn" onclick="document.location.reload(); return false">Reload</a>
   </li>
 </ul>
 
@@ -52,14 +50,14 @@ Welcome. <br/>
     </script>
   <% end %>
 
-  <%= button_to "sign out", phone_app_logout_path, method: :post, data: {turbo: false} %>
+  <%= button_to "sign out", phone_app_logout_path, method: :post, data: {turbo: false}, class: 'btn' %>
 <% else %>
 <h2>Login</h2>
   <%= form_with url: phone_app_login_path do |f| %>
     <%= f.text_field :email, placeholder: "joe@gmail.com" %><br>
     <%= f.password_field :password, placeholder: "*******" %><br>
     <%#= link_to "Sign Up", new_user_path %>
-    <%= f.submit "Sign In!" %>
+    <%= f.submit "Sign In!", class: 'btn' %>
   <% end %>
 <% end %>
 
