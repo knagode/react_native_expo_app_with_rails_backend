@@ -19,7 +19,7 @@ React Native app can be found in `/react_native_app` folder
 
 `rails s` 
 
-`ngrok http 3000`
+`ssh -R expoapp:80:localhost:3000 serveo.net` or `ngrok http 3000` (change paths in App.js if you use ngrok)
 
 ## For react native app 
 

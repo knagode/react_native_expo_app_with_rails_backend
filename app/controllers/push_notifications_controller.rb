@@ -49,4 +49,13 @@ class PushNotificationsController < ApplicationController
 
     render json: { status: "Notifications has been sent"}
   end
+
+  def fake_login
+    session[:email] = params[:email]
+    redirect_to phone_app_landing_path
+  end
+
+  def fake_logout
+    session.delete(:email)
+  end
 end

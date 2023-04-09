@@ -14,17 +14,19 @@ Welcome. <br/>
 
 
 <ul>
-  <li>
-    <a href="#" onclick="window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'askForPushNotificationPermission' })); return false;">Turn on push notifications</a>
-  </li>
+  <% unless params[:expo_push_token].present? %>
+    <li>
+      <a href="#" onclick="window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'askForPushNotificationPermission' })); return false;">Turn on push notifications</a>
+    </li>
+  <% end %>
 
-  <li>
+<!--   <li>
     <a href="#" onclick="window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'setAuthToken', token: 'xyz' + Math.floor(Math.random() * 1000)})); return false;">Set auth token</a>
-  </li>
+  </li> -->
 
-  <li>
+<!--   <li>
     <a href="#" onclick="window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'setAuthToken', token: ''})); return false;">Clear auth token</a>
-  </li>
+  </li> -->
 
 <!--   <li>
     <a href="#" onclick="window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'alert', message: 'Hello world'})); return false;">Send alert via React Native</a>
@@ -41,5 +43,24 @@ Welcome. <br/>
   </li>
 </ul>
 
+<% if session[:email] %>
+  <h2>Welcome <%= session[:email] %></h2>
+  
+  <% if params[:auth_token].blank? %>
+    <script>
+      window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'setAuthToken', token: "<%= session[:email] %>_" + Math.floor(Math.random() * 1000)}))
+    </script>
+  <% end %>
+
+  <%= button_to "sign out", phone_app_logout_path, method: :post, data: {turbo: false} %>
+<% else %>
+<h2>Login</h2>
+  <%= form_with url: phone_app_login_path do |f| %>
+    <%= f.text_field :email, placeholder: "joe@gmail.com" %><br>
+    <%= f.password_field :password, placeholder: "*******" %><br>
+    <%#= link_to "Sign Up", new_user_path %>
+    <%= f.submit "Sign In!" %>
+  <% end %>
+<% end %>
 
 

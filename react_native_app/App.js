@@ -129,7 +129,7 @@ export default function App() {
         //onMessage={onMessage}
         onMessage={(event) => onMessage(event, handleSetExpoPushToken)}
         originWhitelist={['*']}
-        source={{uri: `https://32df-95-176-137-243.ngrok-free.app/phone/landing?expo_push_token=${expoPushToken}&auth_token=${authToken}&url=${url}`}} // Dimensions.get("window").width
+        source={{uri: `http://expoapp.serveo.net/phone/landing?expo_push_token=${expoPushToken}&auth_token=${authToken}&url=${url}`}} // Dimensions.get("window").width
         style={{flex: 1}}
         javaScriptEnabled={true}
         // scalesPageToFit 

@@ -3,11 +3,17 @@
   <head>
     <title>ExpoPush</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <style>
+      body { font-size: 16px; }
+      input, select { font-size: 100%; }
+    </style>
   </head>
 
   <body>

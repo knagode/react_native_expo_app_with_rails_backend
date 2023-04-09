@@ -60,6 +60,9 @@ Rails.application.configure do
   config.assets.quiet = true
 
   config.hosts << /[a-z0-9\-]+\.ngrok-free\.app/
+  config.hosts << /[a-z0-9\-\_]+\.serveo\.net/
+
+  config.forgery_protection_origin_check = false
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
