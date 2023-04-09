@@ -1,4 +1,4 @@
-# React Native app with Rails backend 
+# React Native app with Rails backend (& push notifications)
 
 ## Features
 
@@ -10,7 +10,7 @@
 
 ## Structure
 
-In the root of the repository is Rails. 
+In the root of the repository is Rail code. 
 React Native app can be found in `/react_native_app` folder
 
 # Setup
