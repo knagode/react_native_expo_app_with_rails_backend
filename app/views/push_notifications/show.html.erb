@@ -18,6 +18,34 @@
     </li>
   <% end %>
 
+  <% if current_user %>
+    <li>
+      <!-- <a class="btn" href="#" onclick="window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'askForPushNotificationPermission' })); return false;">Turn on push notifications</a> -->
+      <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: 'btn' %>
+    </li>
+  <% else %>
+    <li>
+      <!-- <a class="btn" href="#" onclick="window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'askForPushNotificationPermission' })); return false;">Turn on push notifications</a> -->
+      <%= link_to "Sign In", new_user_session_path, class: 'btn' %>
+    </li>
+
+    <li>
+      <!-- <a class="btn" href="#" onclick="window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'askForPushNotificationPermission' })); return false;">Turn on push notifications</a> -->
+      <%= link_to "Sign Up", new_user_registration_path, class: 'btn' %>
+    </li>
+  <% end %>
+
+  
+
+  
+
+
+
+  
+
+  
+
+
 <!--   <li>
     <a href="#" onclick="window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'setAuthToken', token: 'xyz' + Math.floor(Math.random() * 1000)})); return false;">Set auth token</a>
   </li> -->
@@ -40,25 +68,4 @@
     <a href="#" class="btn" onclick="document.location.reload(); return false">Reload</a>
   </li>
 </ul>
-
-<% if session[:email] %>
-  <h2>Welcome <%= session[:email] %></h2>
-  
-  <% if params[:auth_token].blank? %>
-    <script>
-      window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'setAuthToken', token: "<%= session[:email] %>_" + Math.floor(Math.random() * 1000)}))
-    </script>
-  <% end %>
-
-  <%= button_to "sign out", phone_app_logout_path, method: :post, data: {turbo: false}, class: 'btn' %>
-<% else %>
-<h2>Login</h2>
-  <%= form_with url: phone_app_login_path do |f| %>
-    <%= f.text_field :email, placeholder: "joe@gmail.com" %><br>
-    <%= f.password_field :password, placeholder: "*******" %><br>
-    <%#= link_to "Sign Up", new_user_path %>
-    <%= f.submit "Sign In!", class: 'btn' %>
-  <% end %>
-<% end %>
-
 

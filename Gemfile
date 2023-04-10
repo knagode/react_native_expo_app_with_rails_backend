@@ -72,3 +72,5 @@ group :test do
 end
 
 gem 'exponent-server-sdk'
+
+gem 'devise'
