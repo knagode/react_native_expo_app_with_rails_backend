@@ -5,6 +5,8 @@ class PhoneApp::PushNotificationsController < ApplicationController
 
     random_number = rand(1000)
 
+    raise "Sending notifications from localhost is not allowed. Ise serveo.net or ngrok" if request.host == 'localhost'
+
     messages = [
       {
         to: current_user.expo_push_token, #"ExponentPushToken[lYq2h0FMhxmeZy5iCHTWog]",

@@ -109,10 +109,9 @@ export default function App() {
       setNotification(notification);
     });
 
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response.notification);
-      
-      setUrl(response.notification.request.content.data.url)
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {      
+      let url = response.notification.request.content.data.url
+      setUrl(url)      
     });
 
     return () => {
@@ -121,16 +120,17 @@ export default function App() {
     };
   }, []);
 
+  // return (<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text>Hello, world!</Text></View>)
+
   return (
     <View style={{ flex: 1 }}>
+
       <WebView
-        //onMessage={onMessage}
         onMessage={(event) => onMessage(event, handleSetExpoPushToken)}
         originWhitelist={['*']}
-        source={{uri: `http://expoapp.serveo.net/phone_app?expo_push_token=${expoPushToken}&auth_token=${authToken}&url=${url}`}} // Dimensions.get("window").width
+        source={{uri: `http://expoapp.serveo.net/phone_app?expo_push_token=${expoPushToken}&auth_token=${authToken}&url=${encodeURIComponent(url)}`}} // Dimensions.get("window").width
         style={{flex: 1}}
         javaScriptEnabled={true}
-        // scalesPageToFit 
       />
     </View>
   );
