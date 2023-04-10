@@ -2,13 +2,21 @@
 
 <div style="font-size: 10px; background: #eee; padding: 10px; border-radius: 10px; margin-bottom: 10px">
   <code>
-  push_token=<%= params[:expo_push_token] %>
+  expo_push_token=<%= params[:expo_push_token] %>
   <br/>
   auth_token=<%= params[:auth_token] %>
   <br/>
   url=<%= params[:url] %>
   </code>
 </div>
+
+<% if current_user %> 
+  <% if params[:auth_token].to_s.length < 20 # TODO: sometimes `undefined` string is returned by react native %>
+    <script>
+      window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'setAuthToken', token: "<%= current_user.auth_token %>" });
+    </script>
+  <% end %>
+<% end %>
 
 
 <ul>
@@ -21,7 +29,7 @@
   <% if current_user %>
     <li>
       <!-- <a class="btn" href="#" onclick="window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'askForPushNotificationPermission' })); return false;">Turn on push notifications</a> -->
-      <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: 'btn' %>
+      <%= button_to "Sign Out", destroy_user_session_path(is_phone_app: true), method: :delete, class: 'btn' %>
     </li>
   <% else %>
     <li>
@@ -34,17 +42,7 @@
       <%= link_to "Sign Up", new_user_registration_path, class: 'btn' %>
     </li>
   <% end %>
-
   
-
-  
-
-
-
-  
-
-  
-
 
 <!--   <li>
     <a href="#" onclick="window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'setAuthToken', token: 'xyz' + Math.floor(Math.random() * 1000)})); return false;">Set auth token</a>

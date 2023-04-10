@@ -1,7 +1,0 @@
-<h1 style="margin-top:58px">Logout</h1>
-
-<script>
-  window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'setAuthToken', token: ''}));
-
-  setTimeout(function() { document.location.href = "<%= phone_app_landing_url(host: request.host) %>" }, 1000) // for web tests only - code obove triggers redirect on phone automatically
-</script>
