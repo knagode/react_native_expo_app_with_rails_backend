@@ -11,16 +11,19 @@
 </div>
 
 <% if current_user %> 
-  <% if params[:auth_token].to_s.length < 20 # TODO: sometimes `undefined` string is returned by react native %>
+  
+  <h3>Hello, <%= current_user.email %> </h3>
+
+  <% if params[:auth_token] != current_user.auth_token # TODO: sometimes `undefined` string is returned by react native %>
     <script>
-      window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'setAuthToken', token: "<%= current_user.auth_token %>" });
+      window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'setAuthToken', token: "<%= current_user.auth_token %>" }));
     </script>
   <% end %>
 <% end %>
 
 
 <ul>
-  <% unless params[:expo_push_token].present? %>
+  <% if params[:expo_push_token].to_s.length < 20 && current_user&.expo_push_token.blank? %>
     <li>
       <a class="btn" href="#" onclick="window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'askForPushNotificationPermission' })); return false;">Turn on push notifications</a>
     </li>
@@ -28,35 +31,19 @@
 
   <% if current_user %>
     <li>
-      <!-- <a class="btn" href="#" onclick="window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'askForPushNotificationPermission' })); return false;">Turn on push notifications</a> -->
       <%= button_to "Sign Out", destroy_user_session_path(is_phone_app: true), method: :delete, class: 'btn' %>
     </li>
   <% else %>
     <li>
-      <!-- <a class="btn" href="#" onclick="window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'askForPushNotificationPermission' })); return false;">Turn on push notifications</a> -->
       <%= link_to "Sign In", new_user_session_path, class: 'btn' %>
     </li>
 
     <li>
-      <!-- <a class="btn" href="#" onclick="window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'askForPushNotificationPermission' })); return false;">Turn on push notifications</a> -->
       <%= link_to "Sign Up", new_user_registration_path, class: 'btn' %>
     </li>
   <% end %>
-  
 
-<!--   <li>
-    <a href="#" onclick="window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'setAuthToken', token: 'xyz' + Math.floor(Math.random() * 1000)})); return false;">Set auth token</a>
-  </li> -->
-
-<!--   <li>
-    <a href="#" onclick="window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'setAuthToken', token: ''})); return false;">Clear auth token</a>
-  </li> -->
-
-<!--   <li>
-    <a href="#" onclick="window.ReactNativeWebView?.postMessage(JSON.stringify({ type: 'alert', message: 'Hello world'})); return false;">Send alert via React Native</a>
-  </li> -->
-
-  <% if params[:expo_push_token].present? %>
+  <% if current_user&.expo_push_token %>
     <li>
       <%= button_to "Send notification from backend", phone_app_send_notification_path, method: :post, class: 'btn' %>
     </li>

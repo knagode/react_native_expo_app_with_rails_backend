@@ -13,7 +13,7 @@ class PhoneApp::AppController < ApplicationController
     end
 
     # store expo_push_token if it has not yet been saved
-    if session[:expo_push_token] && current_user && !current_user.expo_push_token
+    if session[:expo_push_token].to_s.length > 20 && current_user && current_user.expo_push_token != session[:expo_push_token]
       current_user.update(expo_push_token: session[:expo_push_token])
     end
 

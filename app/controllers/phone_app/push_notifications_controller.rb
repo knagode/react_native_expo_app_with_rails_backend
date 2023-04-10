@@ -1,4 +1,4 @@
-class PushNotificationsController < ApplicationController
+class PhoneApp::PushNotificationsController < ApplicationController
   def send_sample_notification
     client = Exponent::Push::Client.new
     # client = Exponent::Push::Client.new(gzip: true)  # for compressed, faster requests
@@ -7,7 +7,7 @@ class PushNotificationsController < ApplicationController
 
     messages = [
       {
-        to: session[:expo_push_token], #"ExponentPushToken[lYq2h0FMhxmeZy5iCHTWog]",
+        to: current_user.expo_push_token, #"ExponentPushToken[lYq2h0FMhxmeZy5iCHTWog]",
         sound: "default",
         body: "Random number from server #{random_number}", 
         data: { url: phone_app_another_page_url(host: request.host, rand: random_number) }

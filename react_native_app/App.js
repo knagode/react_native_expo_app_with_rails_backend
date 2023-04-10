@@ -86,8 +86,6 @@ export default function App() {
     } = event;
   
     let parsedData = JSON.parse(data)
-
-    // alert(JSON.stringify(parsedData))
     
     let type = parsedData.type
 
@@ -129,7 +127,7 @@ export default function App() {
         //onMessage={onMessage}
         onMessage={(event) => onMessage(event, handleSetExpoPushToken)}
         originWhitelist={['*']}
-        source={{uri: `http://expoapp.serveo.net/phone/landing?expo_push_token=${expoPushToken}&auth_token=${authToken}&url=${url}`}} // Dimensions.get("window").width
+        source={{uri: `http://expoapp.serveo.net/phone_app?expo_push_token=${expoPushToken}&auth_token=${authToken}&url=${url}`}} // Dimensions.get("window").width
         style={{flex: 1}}
         javaScriptEnabled={true}
         // scalesPageToFit 
