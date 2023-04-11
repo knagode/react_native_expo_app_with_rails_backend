@@ -5,7 +5,7 @@
 - React native app consist of single webview (aka iframe) which opens specific page on Rails server
 - Rails uses Devise in order to authenticate user
 - App takes care for passing authentication and push notification token between React client and Rails backened (user will stay logged in after reopening the app)
-- Simple way to ask for push notification permission via Rails->JS (no need to make changes with React native at all)
+- Simple way to ask for push notification permission via Rails->JS (no need to make changes in React when you want to change UX)
 - Send push notifications from backend to subscribed user
 - Clickable notifications (click on notification can open specific page)
 
