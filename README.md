@@ -18,16 +18,20 @@ React Native app can be found in `/react_native_app` folder
 
 ## Backend: 
 
-`rails s` 
+```
+rails s
 
-`ssh -R expoapp:80:localhost:3000 serveo.net` or `ngrok http 3000` (change paths in App.js if you use another proxy: e.g. ngrok)
+ssh -R expoapp:80:localhost:3000 serveo.net` # or `ngrok http 3000` (change paths in App.js if you use another proxy: e.g. ngrok)
+```
 
 ## For react native app 
 
 ngrok URL should be changed in react_native_app/App.js in order to point to your local ngrok instance:
 
-`cd react_native_app`
-`npx expo start`
+```
+cd react_native_app
+npx expo start
+```
 
 Install `Expo go` application in AppStore (for iPhone users) 
 
